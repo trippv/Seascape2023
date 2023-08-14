@@ -49,10 +49,10 @@ coastline_buffered <- lapply(coastlines_paths, function(region) {
     dplyr::select(x,y)
   
   lat_lim <- range(coastline_lims$y)
-  lat_lim[2] <- lat_lim[2] + 2# add some buffer to higher lat
+  lat_lim <- lat_lim + c(-3, 3)# add some buffer to higher lat
   
   lon_lim <- range(coastline_lims$x)
-  lon_lim[1] <- lon_lim[1]
+  lon_lim <- lon_lim + c(-2, 2)
   
   map_lims <- c(lon_lim, lat_lim)
   
@@ -64,8 +64,8 @@ coastline_buffered <- lapply(coastlines_paths, function(region) {
   
   if(str_detect(basename(region), "BCP")) {
     # set mask on GOC coast
-    poly.pac <- data.frame(x = c(-130, -123.4134, -123.4134, -121.7512, -117.0138, -115.6840, -114.9776, -113.8556, -112.8998, -112.0271, -111.3622, -110.6558, -109.9078, -109.9909, -130), 
-                           y = c(47.5, 47.5, 47.21261, 41.54468, 36.04748, 32.01847, 29.96982, 28.80892, 27.27243, 26.35054, 24.91649, 24.06288, 23.51658, 23.00442, 23.00442))
+    poly.pac <- data.frame(x = c(-130, -123.4134, -123.4134, -121.7512, -117.0138, -115.6840, -114.9776, -113.8556, -112.8998, -112.0271, -111.3622, -110.6558, -109.9078, -109.9909, -109.6555, -130), 
+                           y = c(47.5, 47.5, 47.21261, 41.54468, 36.04748, 32.01847, 29.96982, 28.80892, 27.27243, 26.35054, 24.91649, 24.06288, 23.51658, 23.00442, 22.00442, 20.00442))
     poly.pac.vect <- vect(as.matrix(poly.pac), "polygons")
     
     # intersect with GOC mask
@@ -89,7 +89,7 @@ coastline_buffered <- lapply(coastlines_paths, function(region) {
 
 
 # test
-plot(coastline_buffered[[3]])
+plot(coastline_buffered[[1]])
 
 
 
